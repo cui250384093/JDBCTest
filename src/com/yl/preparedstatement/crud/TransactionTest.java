@@ -1,5 +1,6 @@
 package com.yl.preparedstatement.crud;
 
+import com.yl.bean.User;
 import com.yl.util.JDBCUtils;
 import org.junit.jupiter.api.Test;
 
@@ -31,6 +32,40 @@ public class TransactionTest {
         JDBCUtils.closeResource(conn,null);
     }
 
+
+
+    @Test
+    public void transactionTest() throws Exception {
+
+        Connection conn = JDBCUtils.getConnection();
+        String sql = "select user, password, balance from user_table where user = ?";
+        ArrayList<User> user = getInstances(conn, User.class, sql, "CC");
+
+        System.out.println(user);
+
+    }
+
+    @Test
+    public void transactionUpdateTest() throws Exception {
+        Connection conn = JDBCUtils.getConnection();
+
+        String sql = "update user_table set balance = ? where user = ?";
+        update(conn, sql, 5000, "CC");
+    }
+
+    @Test
+    public void test1() throws Exception {
+        Connection conn = JDBCUtils.getConnection();
+        System.out.println(conn.getTransactionIsolation());
+    }
+
+    /**
+     *
+     * @param conn
+     * @param sql
+     * @param args
+     * @return
+     */
     public static int update(Connection conn, String sql, Object ...args) {
 
         PreparedStatement ps = null;
@@ -56,14 +91,16 @@ public class TransactionTest {
         return 0;
     }
 
-    @Test
-    public void TransactionTest() throws Exception {
-
-        Connection conn = JDBCUtils.getConnection();
-
-    }
-
-    //session
+    /**
+     *
+     * @param conn
+     * @param clazz
+     * @param sql
+     * @param args
+     * @param <T>
+     * @return
+     * @throws Exception
+     */
     public static <T> ArrayList<T> getInstances(Connection conn, Class<T> clazz, String sql, Object ...args) throws Exception {
 
         PreparedStatement ps = conn.prepareStatement(sql);
@@ -86,7 +123,6 @@ public class TransactionTest {
                 field.setAccessible(true);
                 field.set(t, columnValue);
             }
-
             al.add(t);
         }
 
