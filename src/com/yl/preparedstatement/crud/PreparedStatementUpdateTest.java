@@ -30,8 +30,7 @@ public class PreparedStatementUpdateTest {
         JDBCUtils.closeResource(conn, ps);
     }
 
-    @Test
-    public void update(String sql, Object ...args) {
+    public static void update(String sql, Object ...args) {
 
         Connection conn = null;
         PreparedStatement ps = null;
