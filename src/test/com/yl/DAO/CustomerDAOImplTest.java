@@ -39,7 +39,7 @@ public void after() throws Exception {
 public void testInsert() throws Exception { 
 //TODO: Test goes here...
 
-    Connection conn = JDBCUtils.getConnection();
+    Connection conn = JDBCUtils.getConnection2();
     Customer cus = new Customer(100, "Lily", "lily@163.com", new Date(477535353577L));
     dao.insert(conn, cus);
     System.out.println("insert successfully!");

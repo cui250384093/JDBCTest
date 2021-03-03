@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<c3p0-config>
+
+    <!-- This app is massive! -->
+    <named-config name="helloC3P0">
+
+        <property name="driverClass">com.mysql.cj.jdbc.Driver</property>
+        <property name="jdbcUrl">jdbc:mysql://localhost:3306/test</property>
+        <property name="user">root</property>
+        <property name="password">lili</property>
+
+        <!-- base setup -->
+        <property name="acquireIncrement">50</property>
+        <property name="initialPoolSize">100</property>
+        <property name="minPoolSize">50</property>
+        <property name="maxPoolSize">1000</property>
+
+        <property name="maxStatements">0</property>
+        <property name="maxStatementsPerConnection">5</property>
+
+    </named-config>
+</c3p0-config>

@@ -1,9 +1,13 @@
 package com.yl1.util;
 
+import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import org.junit.jupiter.api.Test;
 
+import javax.sql.DataSource;
+import javax.xml.transform.Source;
+import java.io.InputStream;
 import java.sql.*;
+import java.util.Properties;
 
 /**
  * @author candk
@@ -71,10 +75,26 @@ public class JDBCUtils {
             e.printStackTrace();
         }
     }
-    @Test
-    public void test() throws SQLException {
-        Connection conn = JDBCUtils.getConnection();
 
-        System.out.println(conn);
+    /**
+     * use druid
+     */
+    private static DataSource source;
+
+    static {
+        try {
+            Properties pros = new Properties();
+            InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("druid.properties");
+
+            pros.load(is);
+            source = DruidDataSourceFactory.createDataSource(pros);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static Connection getConnection2() throws SQLException {
+        Connection conn = source.getConnection();
+        return conn;
     }
 }

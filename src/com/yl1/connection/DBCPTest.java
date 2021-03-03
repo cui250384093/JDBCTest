@@ -44,6 +44,7 @@ public class DBCPTest {
         InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("dbcp.properties");
         pros.load(is);
 
+        //create a poll
         BasicDataSource sou = BasicDataSourceFactory.createDataSource(pros);
         Connection conn = sou.getConnection();
         System.out.println(conn);
