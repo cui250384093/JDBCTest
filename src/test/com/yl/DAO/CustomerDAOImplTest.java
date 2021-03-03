@@ -2,7 +2,7 @@ package test.com.yl.DAO;
 
 import com.yl.DAO.CustomerDAOImpl;
 import com.yl.bean.Customer;
-import com.yl.util.JDBCUtils;
+import com.yl1.util.JDBCUtils;
 import org.junit.Test;
 import org.junit.Before; 
 import org.junit.After;
