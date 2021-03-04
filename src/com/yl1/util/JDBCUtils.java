@@ -2,6 +2,7 @@ package com.yl1.util;
 
 import com.alibaba.druid.pool.DruidDataSourceFactory;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.commons.dbutils.DbUtils;
 
 import javax.sql.DataSource;
 import javax.xml.transform.Source;
@@ -96,5 +97,12 @@ public class JDBCUtils {
     public static Connection getConnection2() throws SQLException {
         Connection conn = source.getConnection();
         return conn;
+    }
+
+    public static void closeResource1(Connection conn, Statement ps, ResultSet rs) {
+
+        DbUtils.closeQuietly(conn);
+        DbUtils.closeQuietly(ps);
+        DbUtils.closeQuietly(rs);
     }
 }
